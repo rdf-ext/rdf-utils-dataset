@@ -42,29 +42,4 @@ describe('resource', () => {
 
     assert.equal(output.toCanonical(), input.toCanonical())
   })
-
-  it('should ignore graph if no graph parameter is given', () => {
-    const predicate = rdf.namedNode('http://example.org/predicate')
-    const namedNode0 = rdf.namedNode('http://example.org/node0')
-    const namedNode1 = rdf.namedNode('http://example.org/node1')
-    const blankNode0 = rdf.blankNode()
-    const blankNode1 = rdf.blankNode()
-    const graph0 = rdf.namedNode('http://example.org/graph0')
-    const graph1 = rdf.namedNode('http://example.org/graph1')
-
-    const input = rdf.dataset([
-      rdf.quad(namedNode0, predicate, blankNode0, graph0),
-      rdf.quad(blankNode0, predicate, namedNode1, graph1),
-      rdf.quad(namedNode1, predicate, blankNode1, graph0)
-    ])
-
-    const output = resource(input, namedNode0)
-
-    const expected = rdf.dataset([
-      rdf.quad(namedNode0, predicate, blankNode0, graph0),
-      rdf.quad(blankNode0, predicate, namedNode1, graph1)
-    ])
-
-    assert.equal(output.toCanonical(), expected.toCanonical())
-  })
 })
