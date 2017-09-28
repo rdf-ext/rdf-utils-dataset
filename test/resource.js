@@ -42,4 +42,20 @@ describe('resource', () => {
 
     assert.equal(output.toCanonical(), input.toCanonical())
   })
+
+  it('should ignore the fragment part of the subject', () => {
+    const predicate = rdf.namedNode('http://example.org/predicate')
+    const namedNode0 = rdf.namedNode('http://example.org/node')
+    const namedNode1 = rdf.namedNode('http://example.org/node#fragmet')
+    const blankNode = rdf.blankNode()
+
+    const input = rdf.dataset([
+      rdf.quad(namedNode0, predicate, blankNode),
+      rdf.quad(namedNode1, predicate, blankNode)
+    ])
+
+    const output = resource(input, namedNode0)
+
+    assert.equal(output.toCanonical(), input.toCanonical())
+  })
 })

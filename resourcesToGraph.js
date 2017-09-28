@@ -8,11 +8,21 @@ function resourcesToGraph (input, options) {
 
   const output = factory.dataset()
 
-  input.match(null, null, null).filter((quad) => {
+  input.filter((quad) => {
     return quad.subject.termType === 'NamedNode'
-  }).forEach((resourceQuad) => {
-    output.addAll(resource(input, resourceQuad.subject).map((quad) => {
-      return factory.quad(quad.subject, quad.predicate, quad.object, resourceQuad.subject)
+  }).toArray().reduce((resourceIRIs, quad) => {
+    const resourceIRI = quad.subject.value.split('#').shift()
+
+    if (resourceIRIs.indexOf(resourceIRI) === -1) {
+      resourceIRIs.push(resourceIRI)
+    }
+
+    return resourceIRIs
+  }, []).forEach((resourceIRI) => {
+    const resourceNode = factory.namedNode(resourceIRI)
+
+    output.addAll(resource(input, resourceNode).map((quad) => {
+      return factory.quad(quad.subject, quad.predicate, quad.object, resourceNode)
     }))
   })
 
