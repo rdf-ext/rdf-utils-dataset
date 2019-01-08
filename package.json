@@ -1,6 +1,6 @@
 {
   "name": "rdf-utils-dataset",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "RDFJS Dataset utils",
   "main": "index.js",
   "scripts": {
