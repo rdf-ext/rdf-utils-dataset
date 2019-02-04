@@ -1,33 +1,36 @@
 const rdf = require('rdf-ext')
 const resource = require('./resource')
+const cloned = true
 
-function resourcesToGraph (input, options) {
-  options = options || {}
-
+function resourcesToGraph (_input, options = {}) {
+  const input = _input.clone()
   const factory = options.factory || rdf
 
   const output = factory.dataset()
 
-  input.toArray()
-    .reduce((resourceIRIs, quad) => {
+  const resourceIRIs = input.toArray()
+    .reduce((iriSet, quad) => {
       if (quad.subject.termType !== 'NamedNode') {
-        return resourceIRIs
-      }
-      const resourceIRI = quad.subject.value.split('#')[0]
-
-      if (resourceIRIs.indexOf(resourceIRI) === -1) {
-        resourceIRIs.push(resourceIRI)
+        return iriSet
       }
 
-      return resourceIRIs
-    }, [])
-    .forEach((resourceIRI) => {
-      const resourceNode = factory.namedNode(resourceIRI)
+      iriSet.add(quad.subject.value.split('#')[0])
 
-      output.addAll(resource(input, resourceNode).map((quad) => {
-        return factory.quad(quad.subject, quad.predicate, quad.object, resourceNode)
-      }))
+      return iriSet
+    }, new Set())
+
+  resourceIRIs.forEach((resourceIRI) => {
+    const resourceNode = factory.namedNode(resourceIRI)
+    const resourceTriples = resource(input, resourceNode, cloned)
+
+    resourceTriples.forEach(triple => {
+      if (triple.subject.termType !== 'BlankNode') {
+        input.remove(triple)
+      }
     })
+
+    output.addAll(resourceTriples.map((quad) => factory.quad(quad.subject, quad.predicate, quad.object, resourceNode)))
+  })
 
   return output
 }
