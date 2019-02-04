@@ -28,7 +28,7 @@ describe('resource', () => {
     assert.equal(output.toCanonical(), expected.toCanonical())
   })
 
-  it('should handle circlura links', () => {
+  it('should handle circular links', () => {
     const predicate = rdf.namedNode('http://example.org/predicate')
     const namedNode = rdf.namedNode('http://example.org/node')
     const blankNode = rdf.blankNode()
