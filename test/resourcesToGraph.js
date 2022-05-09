@@ -1,11 +1,11 @@
 /* global describe, it */
 
-const assert = require('assert')
-const rdf = require('rdf-ext')
-const resourcesToGraph = require('../resourcesToGraph')
+import assert from 'assert'
+import rdf from 'rdf-ext'
+import resourcesToGraph from '../resourcesToGraph.js'
 
 describe('resourcesToGraph', () => {
-  it('should split resources in seperate graphs', () => {
+  it('should split resources in separate graphs', () => {
     const predicate = rdf.namedNode('http://example.org/predicate')
     const namedNode0 = rdf.namedNode('http://example.org/node0')
     const namedNode1 = rdf.namedNode('http://example.org/node1')
@@ -82,7 +82,7 @@ describe('resourcesToGraph', () => {
       }
     }
 
-    resourcesToGraph(input, {factory})
+    resourcesToGraph(input, { factory })
 
     assert.equal(count, 3)
   })

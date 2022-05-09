@@ -9,20 +9,19 @@ function resource (_input, subject, cloned = false) {
     return quad.subject.equals(subject)
   })
 
-  if (quads.length > 0) {
-    quads.forEach(triple => {
-      if (triple.subject.termType !== 'BlankNode' && triple.object.termType !== 'BlankNode') {
-        input.remove(triple)
-      }
-    })
-    quads.forEach((quad) => {
-      if (quad.object.termType !== 'NamedNode') {
-        quads.addAll(resource(input, quad.object, true))
-      }
-    })
+  for (const triple of quads) {
+    if (triple.subject.termType !== 'BlankNode' && triple.object.termType !== 'BlankNode') {
+      input.remove(triple)
+    }
+  }
+
+  for (const quad of quads) {
+    if (quad.object.termType !== 'NamedNode') {
+      quads.addAll(resource(input, quad.object, true))
+    }
   }
 
   return quads
 }
 
-module.exports = resource
+export default resource

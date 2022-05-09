@@ -1,8 +1,8 @@
 /* global describe, it */
 
-const assert = require('assert')
-const rdf = require('rdf-ext')
-const resource = require('../resource')
+import assert from 'assert'
+import rdf from 'rdf-ext'
+import resource from '../resource.js'
 
 describe('resource', () => {
   it('should create sub graph for a resource', () => {
