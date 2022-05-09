@@ -10,25 +10,26 @@ Utils for RDFJS Datasets.
 Each util function can be loaded as property from the main module or by loading only the file with the same name.
 Loading the individual files can decrease the file size after packaging the JavaScript code for the browser.
 
-### Example
+### Usage
 
 Loading the function from the main module:
 
-    const resource = require('rdf-utils-dataset').resource
- 
+```js
+import { resource } from 'rdf-utils-dataset'
+```
+
 Loading the function from the file with the function name:
 
-    const resource = require('rdf-utils-dataset/resource')
+```js
+import { resource } from 'rdf-utils-dataset/resource.js'
+```
 
 ## Functions
 
 ### resource(input, subject)
 
-Returns a subgraph of `input`.
-It's created by traversing `input` starting at subject.
-Traversing stops at quads with a `NamedNode` subject.
+Returns a subgraph of `input`. It's created by traversing `input` starting at subject. Traversing stops at quads with a `NamedNode` subject.
 
 ### resourcesToGraph (input, options)
 
-Searches for all `NamedNode` subjects in `input` and creates subgraphs using `resource()`.
-The graph of the quads are set to the start subject.  
+Searches for all `NamedNode` subjects in `input` and creates subgraphs using `resource()`. The graph of the quads are set to the start subject.  
