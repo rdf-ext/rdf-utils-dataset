@@ -15,13 +15,13 @@ Loading the individual files can decrease the file size after packaging the Java
 Loading the function from the main module:
 
 ```js
-import { resource } from 'rdf-utils-dataset'
+import resource from 'rdf-utils-dataset'
 ```
 
 Loading the function from the file with the function name:
 
 ```js
-import { resource } from 'rdf-utils-dataset/resource.js'
+import resource from 'rdf-utils-dataset/resource.js'
 ```
 
 ## Functions
