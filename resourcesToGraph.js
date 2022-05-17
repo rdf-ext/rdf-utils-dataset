@@ -1,8 +1,6 @@
 import rdf from 'rdf-ext'
 import resource from './resource.js'
 
-const cloned = true
-
 function resourcesToGraph (_input, options = {}) {
   const input = _input.clone()
   const factory = options.factory || rdf
@@ -22,7 +20,7 @@ function resourcesToGraph (_input, options = {}) {
 
   resourceIRIs.forEach((resourceIRI) => {
     const resourceNode = factory.namedNode(resourceIRI)
-    const resourceTriples = resource(input, resourceNode, cloned)
+    const resourceTriples = resource(input, resourceNode)
 
     resourceTriples.forEach(triple => {
       if (triple.subject.termType !== 'BlankNode') {

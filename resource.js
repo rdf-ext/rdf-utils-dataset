@@ -1,10 +1,8 @@
 import rdf from 'rdf-ext'
 
-function resource (dataset, subject, cloned) {
-  const input = cloned ? dataset : dataset.clone()
-
+function resource (dataset, subject) {
   const siblings = rdf.termSet()
-  input.forEach(quad => {
+  dataset.forEach(quad => {
     if (quad.subject.value.split('#')[0] === subject.value.split('#')[0]) {
       siblings.add(quad.subject)
     }
@@ -18,7 +16,7 @@ function resource (dataset, subject, cloned) {
 
   const result = rdf.dataset()
   siblings.forEach((subject) => {
-    result.addAll(descriptionWithBlankNodes.match({ term: subject, dataset: input }))
+    result.addAll(descriptionWithBlankNodes.match({ term: subject, dataset: dataset }))
   })
   return result
 }
