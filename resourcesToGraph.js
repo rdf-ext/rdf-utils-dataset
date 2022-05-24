@@ -18,7 +18,7 @@ function resourcesToGraph (_input, options = {}) {
       return iriSet
     }, new Set())
 
-  resourceIRIs.forEach((resourceIRI) => {
+  resourceIRIs.forEach(resourceIRI => {
     const resourceNode = factory.namedNode(resourceIRI)
     const resourceTriples = resource(input, resourceNode)
 
@@ -28,7 +28,7 @@ function resourcesToGraph (_input, options = {}) {
       }
     })
 
-    output.addAll(resourceTriples.map((quad) => factory.quad(quad.subject, quad.predicate, quad.object, resourceNode)))
+    output.addAll(resourceTriples.map(quad => factory.quad(quad.subject, quad.predicate, quad.object, resourceNode)))
   })
 
   return output

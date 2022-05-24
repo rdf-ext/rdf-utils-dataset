@@ -1,7 +1,6 @@
 # rdf-utils-dataset
-
-[![Build Status](https://travis-ci.org/rdf-ext/rdf-utils-dataset.svg?branch=master)](https://travis-ci.org/rdf-ext/rdf-utils-dataset)
-[![npm version](https://badge.fury.io/js/rdf-utils-dataset.svg)](https://badge.fury.io/js/rdf-utils-dataset)
+[![build status](https://img.shields.io/github/workflow/status/rdf-ext/rdf-utils-dataset/Test)](https://github.com/rdf-ext/rdf-utils-dataset/actions/workflows/test.yaml)
+[![npm version](https://img.shields.io/npm/v/rdf-utils-dataset.svg)](https://www.npmjs.com/package/rdf-utils-dataset)
 
 Utils for RDFJS Datasets.
 

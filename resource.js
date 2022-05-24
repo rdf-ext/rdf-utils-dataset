@@ -15,7 +15,7 @@ function resource (dataset, subject) {
   }) => level === 0 || quad.subject.termType === 'BlankNode')
 
   const result = rdf.dataset()
-  siblings.forEach((subject) => {
+  siblings.forEach(subject => {
     result.addAll(descriptionWithBlankNodes.match({ term: subject, dataset: dataset }))
   })
   return result
