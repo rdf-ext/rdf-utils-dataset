@@ -1,28 +1,24 @@
-function resource (_input, subject, cloned = false) {
-  const input = cloned ? _input : _input.clone()
+import rdf from 'rdf-ext'
 
-  const quads = input.filter((quad) => {
-    if (subject.termType === 'NamedNode') {
-      return quad.subject.value.split('#')[0] === subject.value.split('#')[0]
+function resource (dataset, subject) {
+  const siblings = rdf.termSet()
+  dataset.forEach(quad => {
+    if (quad.subject.value.split('#')[0] === subject.value.split('#')[0]) {
+      siblings.add(quad.subject)
     }
-
-    return quad.subject.equals(subject)
   })
 
-  if (quads.length > 0) {
-    quads.forEach(triple => {
-      if (triple.subject.termType !== 'BlankNode' && triple.object.termType !== 'BlankNode') {
-        input.remove(triple)
-      }
-    })
-    quads.forEach((quad) => {
-      if (quad.object.termType !== 'NamedNode') {
-        quads.addAll(resource(input, quad.object, true))
-      }
-    })
-  }
+  const descriptionWithBlankNodes = rdf.traverser(({
+    dataset,
+    level,
+    quad
+  }) => level === 0 || quad.subject.termType === 'BlankNode')
 
-  return quads
+  const result = rdf.dataset()
+  siblings.forEach((subject) => {
+    result.addAll(descriptionWithBlankNodes.match({ term: subject, dataset: dataset }))
+  })
+  return result
 }
 
-module.exports = resource
+export default resource

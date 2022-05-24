@@ -1,13 +1,11 @@
-const fs = require('fs')
-const rdf = require('rdf-ext')
-const N3Parser = require('rdf-parser-n3')
-const Readable = require('readable-stream').Readable
-
-module.exports = deserialize
+import fs from 'fs'
+import rdf from 'rdf-ext'
+import N3Parser from 'rdf-parser-n3'
+import Readable from 'readable-stream'
 
 async function deserialize () {
   const parser = new N3Parser({ factory: rdf })
-  const string = fs.readFileSync(require.resolve('./ontology.nt'))
+  const string = fs.readFileSync('./ontology.nt')
 
   const input = new Readable({
     read: () => {
@@ -20,3 +18,5 @@ async function deserialize () {
 
   return rdf.dataset().import(quadStream)
 }
+
+export default deserialize

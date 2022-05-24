@@ -1,6 +1,5 @@
-const rdf = require('rdf-ext')
-const resource = require('./resource')
-const cloned = true
+import rdf from 'rdf-ext'
+import resource from './resource.js'
 
 function resourcesToGraph (_input, options = {}) {
   const input = _input.clone()
@@ -8,7 +7,7 @@ function resourcesToGraph (_input, options = {}) {
 
   const output = factory.dataset()
 
-  const resourceIRIs = input.toArray()
+  const resourceIRIs = [...input]
     .reduce((iriSet, quad) => {
       if (quad.subject.termType !== 'NamedNode') {
         return iriSet
@@ -21,11 +20,11 @@ function resourcesToGraph (_input, options = {}) {
 
   resourceIRIs.forEach((resourceIRI) => {
     const resourceNode = factory.namedNode(resourceIRI)
-    const resourceTriples = resource(input, resourceNode, cloned)
+    const resourceTriples = resource(input, resourceNode)
 
     resourceTriples.forEach(triple => {
       if (triple.subject.termType !== 'BlankNode') {
-        input.remove(triple)
+        input.delete(triple)
       }
     })
 
@@ -35,4 +34,4 @@ function resourcesToGraph (_input, options = {}) {
   return output
 }
 
-module.exports = resourcesToGraph
+export default resourcesToGraph

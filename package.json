@@ -1,6 +1,7 @@
 {
   "name": "rdf-utils-dataset",
   "version": "1.1.0",
+  "type": "module",
   "description": "RDFJS Dataset utils",
   "main": "index.js",
   "scripts": {
@@ -25,10 +26,10 @@
   "homepage": "https://github.com/rdf-ext/rdf-utils-dataset",
   "dependencies": {},
   "devDependencies": {
-    "mocha": "^3.5.3",
-    "rdf-ext": "^1.2.1",
+    "mocha": "^10.0.0",
+    "rdf-ext": "^2.0.1",
     "rdf-parser-n3": "^1.1.1",
-    "readable-stream": "^3.1.1",
+    "readable-stream": "^3.6.0",
     "standard": "^10.0.3"
   },
   "files": [
