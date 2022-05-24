@@ -1,9 +1,13 @@
 import rdf from 'rdf-ext'
 import resource from './resource.js'
 
-function resourcesToGraph (_input, options = {}) {
-  const input = _input.clone()
+function resourcesToGraph (dataset, options = {}) {
   const factory = options.factory || rdf
+
+  const input = factory.dataset()
+  for (const quad of dataset) {
+    input.add(quad)
+  }
 
   const output = factory.dataset()
 
