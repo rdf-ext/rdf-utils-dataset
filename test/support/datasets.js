@@ -1,5 +1,5 @@
-import rdf from 'rdf-ext'
 import datasetFactory from '@rdfjs/dataset'
+import rdf from 'rdf-ext'
 
 function morph (dataset, createDataset) {
   const result = createDataset()
