@@ -5,7 +5,7 @@
   "description": "RDFJS Dataset utils",
   "main": "index.js",
   "scripts": {
-    "test": "stricter-standard && mocha"
+    "test": "stricter-standard && c8 --reporter=lcov --reporter=text-summary mocha"
   },
   "repository": {
     "type": "git",
@@ -26,6 +26,7 @@
   "homepage": "https://github.com/rdf-ext/rdf-utils-dataset",
   "dependencies": {},
   "devDependencies": {
+    "c8": "^7.11.3",
     "mocha": "^10.0.0",
     "rdf-ext": "^2.0.1",
     "rdf-parser-n3": "^1.1.1",
