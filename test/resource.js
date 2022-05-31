@@ -3,6 +3,7 @@
 import assert from 'assert'
 import rdf from 'rdf-ext'
 import resource from '../resource.js'
+import { toRDFExt, toRDFCore } from './support/datasets.js'
 
 describe('resource', () => {
   it('should create sub graph for a resource', () => {
@@ -12,11 +13,11 @@ describe('resource', () => {
     const blankNode0 = rdf.blankNode()
     const blankNode1 = rdf.blankNode()
 
-    const input = rdf.dataset([
+    const input = toRDFCore(rdf.dataset([
       rdf.quad(namedNode0, predicate, blankNode0),
       rdf.quad(blankNode0, predicate, namedNode1),
       rdf.quad(namedNode1, predicate, blankNode1)
-    ])
+    ]))
 
     const output = resource(input, namedNode0)
 
@@ -25,7 +26,7 @@ describe('resource', () => {
       rdf.quad(blankNode0, predicate, namedNode1)
     ])
 
-    assert.equal(output.toCanonical(), expected.toCanonical())
+    assert.equal(toRDFExt(output).toCanonical(), expected.toCanonical())
   })
 
   it('should handle circular links', () => {
@@ -33,14 +34,14 @@ describe('resource', () => {
     const namedNode = rdf.namedNode('http://example.org/node')
     const blankNode = rdf.blankNode()
 
-    const input = rdf.dataset([
+    const input = toRDFCore(rdf.dataset([
       rdf.quad(namedNode, predicate, blankNode),
       rdf.quad(blankNode, predicate, namedNode)
-    ])
+    ]))
 
     const output = resource(input, namedNode)
 
-    assert.equal(output.toCanonical(), input.toCanonical())
+    assert.equal(toRDFExt(output).toCanonical(), toRDFExt(input).toCanonical())
   })
 
   it('should ignore the fragment part of the subject', () => {
@@ -49,13 +50,13 @@ describe('resource', () => {
     const namedNode1 = rdf.namedNode('http://example.org/node#fragmet')
     const blankNode = rdf.blankNode()
 
-    const input = rdf.dataset([
+    const input = toRDFCore(rdf.dataset([
       rdf.quad(namedNode0, predicate, blankNode),
       rdf.quad(namedNode1, predicate, blankNode)
-    ])
+    ]))
 
     const output = resource(input, namedNode0)
 
-    assert.equal(output.toCanonical(), input.toCanonical())
+    assert.equal(toRDFExt(output).toCanonical(), toRDFExt(input).toCanonical())
   })
 })

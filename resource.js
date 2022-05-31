@@ -2,11 +2,12 @@ import rdf from 'rdf-ext'
 
 function resource (dataset, subject) {
   const siblings = rdf.termSet()
-  dataset.forEach(quad => {
+
+  for (const quad of dataset) {
     if (quad.subject.value.split('#')[0] === subject.value.split('#')[0]) {
       siblings.add(quad.subject)
     }
-  })
+  }
 
   const descriptionWithBlankNodes = rdf.traverser(({
     dataset,
