@@ -10,6 +10,7 @@ jobs:
         node:
           - '14'
           - '16'
+          - '18'
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
@@ -17,3 +18,4 @@ jobs:
           node-version: ${{ matrix.node }}
       - run: npm install
       - run: npm test
+      - uses: codecov/codecov-action@v2
