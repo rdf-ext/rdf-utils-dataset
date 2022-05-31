@@ -3,7 +3,7 @@ import deserialize from './ontology.js'
 
 async function logTimes () {
   const dataset = await deserialize()
-  let TEST = `resourcesToGraph`
+  const TEST = 'resourcesToGraph'
   console.time(TEST)
   resourcesToGraph(dataset)
   console.timeEnd(TEST)

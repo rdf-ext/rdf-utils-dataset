@@ -71,7 +71,7 @@ describe('resourcesToGraph', () => {
 
         return rdf.dataset()
       },
-      namedNode: (iri) => {
+      namedNode: iri => {
         count++
 
         return rdf.namedNode(iri)

@@ -5,7 +5,7 @@
   "description": "RDFJS Dataset utils",
   "main": "index.js",
   "scripts": {
-    "test": "standard && mocha"
+    "test": "stricter-standard && mocha"
   },
   "repository": {
     "type": "git",
@@ -30,7 +30,7 @@
     "rdf-ext": "^2.0.1",
     "rdf-parser-n3": "^1.1.1",
     "readable-stream": "^3.6.0",
-    "standard": "^10.0.3"
+    "stricter-standard": "^0.2.0"
   },
   "files": [
     "index.js",
