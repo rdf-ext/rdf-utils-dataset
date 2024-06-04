@@ -1,9 +1,7 @@
-/* global describe, it */
-
-import assert from 'assert'
+import { strictEqual } from 'node:assert'
+import { describe, it } from 'mocha'
 import rdf from 'rdf-ext'
 import resourcesToGraph from '../resourcesToGraph.js'
-import { toRDFExt, toRDFCore } from './support/datasets.js'
 
 describe('resourcesToGraph', () => {
   it('should split resources in separate graphs', () => {
@@ -13,11 +11,11 @@ describe('resourcesToGraph', () => {
     const blankNode0 = rdf.blankNode()
     const blankNode1 = rdf.blankNode()
 
-    const input = toRDFCore(rdf.dataset([
+    const input = rdf.dataset([
       rdf.quad(namedNode0, predicate, blankNode0),
       rdf.quad(blankNode0, predicate, namedNode1),
       rdf.quad(namedNode1, predicate, blankNode1)
-    ]))
+    ])
 
     const output = resourcesToGraph(input)
 
@@ -27,7 +25,7 @@ describe('resourcesToGraph', () => {
       rdf.quad(namedNode1, predicate, blankNode1, namedNode1)
     ])
 
-    assert.equal(toRDFExt(output).toCanonical(), expected.toCanonical())
+    strictEqual(output.toCanonical(), expected.toCanonical())
   })
 
   it('should ignore the fragment part of the subject', () => {
@@ -37,11 +35,11 @@ describe('resourcesToGraph', () => {
     const blankNode0 = rdf.blankNode()
     const blankNode1 = rdf.blankNode()
 
-    const input = toRDFCore(rdf.dataset([
+    const input = rdf.dataset([
       rdf.quad(namedNode0, predicate, blankNode0),
       rdf.quad(blankNode0, predicate, namedNode1),
       rdf.quad(namedNode1, predicate, blankNode1)
-    ]))
+    ])
 
     const output = resourcesToGraph(input)
 
@@ -51,7 +49,7 @@ describe('resourcesToGraph', () => {
       rdf.quad(namedNode1, predicate, blankNode1, namedNode0)
     ])
 
-    assert.equal(toRDFExt(output).toCanonical(), expected.toCanonical())
+    strictEqual(output.toCanonical(), expected.toCanonical())
   })
 
   it('should use the given factory', () => {
@@ -85,6 +83,6 @@ describe('resourcesToGraph', () => {
 
     resourcesToGraph(input, { factory })
 
-    assert.equal(count, 4)
+    strictEqual(count, 4)
   })
 })

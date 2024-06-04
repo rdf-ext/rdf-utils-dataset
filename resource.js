@@ -9,15 +9,13 @@ function resource (dataset, subject) {
     }
   }
 
-  const descriptionWithBlankNodes = rdf.traverser(({
-    dataset,
-    level,
-    quad
-  }) => level === 0 || quad.subject.termType === 'BlankNode')
+  const descriptionWithBlankNodes = rdf.traverser(({ level, quad }) => {
+    return level === 0 || quad.subject.termType === 'BlankNode'
+  })
 
   const result = rdf.dataset()
   siblings.forEach(subject => {
-    result.addAll(descriptionWithBlankNodes.match({ term: subject, dataset: dataset }))
+    result.addAll(descriptionWithBlankNodes.match({ term: subject, dataset }))
   })
   return result
 }
